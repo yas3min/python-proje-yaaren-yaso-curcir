@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>My Logs</title>
+</head>
+<body>
+
+<h2>Benim Loglarım</h2>
+
+<ul>
+    {% for log in logs %}
+        <li>{{ log.action }} - {{ log.created_at }}</li>
+    {% endfor %}
+</ul>
+
+</body>
+</html>

@@ -1,0 +1,13 @@
+{% extends 'base.html' %}
+{% import 'bootstrap/wtf.html' as wtf %}
+{% block title %}Sifre Sifirlama{% endblock %}
+{% block content %}
+  <div class='container'>
+    <div class='row justify-content-center'>
+      <div class='col-md-6'>
+        <h2 class='mt-5 mb-4 text-center'>Sifrenizi Yenileyin</h2>
+        {{ wtf.quick_form(form) }}
+      </div>
+    </div>
+  </div>
+{% endblock %}

@@ -1,0 +1,35 @@
+{% extends "base.html" %}
+{% import "bootstrap/wtf.html" as wtf %}
+
+{% block title %}Admin Paneli - Yeni Ürün Ekle{% endblock %}
+
+{% block content %}
+	{% with msgs =  get_flashed_messages(with_categories=True) %}
+	{% for c, msg in msgs %}
+		{% if c == 'error' %}
+			<div class="flash-error">
+		{% else %}
+			<div class="success">
+		{% endif %}
+			{{ msg | safe}}</div><br>
+	{% endfor %}
+	{% endwith %}
+
+<div class="container" style="margin-top: 30px;">
+    <div class="row">
+        <div class="col-md-8 col-md-offset-2">
+            <h2>Yeni Ürün Ekle</h2>
+            <hr>
+            <form method="POST" enctype="multipart/form-data" class="form" role="form">
+                {{ form.hidden_tag() }}
+                {{ wtf.form_field(form.name) }}
+                {{ wtf.form_field(form.price) }}
+                {{ wtf.form_field(form.category) }}
+                {{ wtf.form_field(form.details) }}
+                {{ wtf.form_field(form.image) }}
+                {{ wtf.form_field(form.submit, button_map={'submit': 'btn btn-primary'}) }}
+            </form>
+        </div>
+    </div>
+</div>
+{% endblock %}
