@@ -1,7 +1,0 @@
-Flask
-Flask-Bootstrap
-Flask-Login
-Flask-SQLAlchemy
-Flask-Mail
-python-dotenv
-stripe
