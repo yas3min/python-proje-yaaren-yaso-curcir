@@ -1,0 +1,12 @@
+<a href="{{ url_for('item', id=item.id) }}" class="product-card">
+  <span class="product-image">
+    <img src="{{ url_for('static', filename='uploads/' + item.image) }}" alt="{{ item.name }}">
+  </span>
+  <span class="product-meta">
+    <span>
+      <strong>{{ item.name }}</strong>
+      <small>{{ item.category }}</small>
+    </span>
+    <b>{{ "%.2f"|format(item.price) }} TL</b>
+  </span>
+</a>

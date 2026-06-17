@@ -1,0 +1,6 @@
+Aromora ornek log ciktisi
+
+2026-06-17 09:50:00 | admin@aromora.local | Giris yapildi
+2026-06-17 09:55:00 | admin@aromora.local | Urun eklendi: Ornek Parfum
+2026-06-17 10:01:00 | musteri@example.com | Giris yapildi
+2026-06-17 10:03:00 | musteri@example.com | Sepete urun eklendi: Ornek Parfum x 1

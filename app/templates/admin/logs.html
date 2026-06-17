@@ -1,0 +1,58 @@
+{% extends "base.html" %}
+
+{% block title %}Sistem Loglari{% endblock %}
+
+{% block content %}
+<section class="section-title">
+  <div>
+    <p class="eyebrow">Admin</p>
+    <h1>Sistem Loglari</h1>
+  </div>
+  <div class="action-group">
+    <a href="{{ url_for('admin.download_logs', user_id=selected_user_id) }}" class="btn btn-primary">
+      <i class="fa fa-download"></i> CSV Indir
+    </a>
+    <a href="{{ url_for('admin.list_items') }}" class="btn btn-outline-dark">Urunler</a>
+    <a href="{{ url_for('admin.list_users') }}" class="btn btn-outline-dark">Kullanicilar</a>
+  </div>
+</section>
+
+<form method="GET" action="{{ url_for('admin.logs') }}" class="filter-bar">
+  <select name="user_id" class="form-control">
+    <option value="">Tum kullanicilar</option>
+    {% for user in users %}
+      <option value="{{ user.id }}" {% if selected_user_id == user.id %}selected{% endif %}>
+        {{ user.email }} - {{ user.role }}
+      </option>
+    {% endfor %}
+  </select>
+  <button type="submit" class="btn btn-dark">Filtrele</button>
+</form>
+
+<div class="table-shell">
+  <table class="table">
+    <thead>
+      <tr>
+        <th>Tarih/Saat</th>
+        <th>Kullanici</th>
+        <th>Rol</th>
+        <th>Islem</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for log in logs %}
+        <tr>
+          <td>{{ log.created_at.strftime('%Y-%m-%d %H:%M') }}</td>
+          <td>{{ log.user.email }}</td>
+          <td><span class="status-pill">{{ log.user.role }}</span></td>
+          <td>{{ log.action }}</td>
+        </tr>
+      {% else %}
+        <tr>
+          <td colspan="4" class="text-center">Log kaydi bulunamadi.</td>
+        </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+</div>
+{% endblock %}

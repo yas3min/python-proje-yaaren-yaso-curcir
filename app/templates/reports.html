@@ -1,0 +1,38 @@
+{% extends "base.html" %}
+
+{% block title %}Raporlarim{% endblock %}
+
+{% block content %}
+<section class="section-title">
+  <div>
+    <p class="eyebrow">{{ current_role.display_name }}</p>
+    <h1>Islem Raporlarim</h1>
+  </div>
+  <a href="{{ url_for('download_report') }}" class="btn btn-primary">
+    <i class="fa fa-download"></i> CSV Indir
+  </a>
+</section>
+
+<div class="table-shell">
+  <table class="table">
+    <thead>
+      <tr>
+        <th>Tarih/Saat</th>
+        <th>Islem</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for log in logs %}
+        <tr>
+          <td>{{ log.created_at.strftime('%Y-%m-%d %H:%M') }}</td>
+          <td>{{ log.action }}</td>
+        </tr>
+      {% else %}
+        <tr>
+          <td colspan="2" class="text-center">Henuz islem kaydi yok.</td>
+        </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+</div>
+{% endblock %}

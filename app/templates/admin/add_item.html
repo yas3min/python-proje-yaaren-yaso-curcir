@@ -1,0 +1,25 @@
+{% extends "base.html" %}
+{% import "bootstrap/wtf.html" as wtf %}
+
+{% block title %}Yeni Ürün{% endblock %}
+
+{% block content %}
+<section class="form-panel">
+  <div class="form-heading">
+    <p class="eyebrow">Admin</p>
+    <h1>Yeni Ürün</h1>
+  </div>
+  <form method="POST" enctype="multipart/form-data">
+    {{ form.hidden_tag() }}
+    {{ wtf.form_field(form.name) }}
+    {{ wtf.form_field(form.price) }}
+    {{ wtf.form_field(form.category) }}
+    {{ wtf.form_field(form.details) }}
+    {{ wtf.form_field(form.image) }}
+    <div class="form-actions">
+      <a href="{{ url_for('admin.list_items') }}" class="btn btn-outline-dark">İptal</a>
+      {{ wtf.form_field(form.submit, button_map={'submit': 'primary'}) }}
+    </div>
+  </form>
+</section>
+{% endblock %}

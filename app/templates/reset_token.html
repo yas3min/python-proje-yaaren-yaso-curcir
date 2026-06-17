@@ -1,0 +1,14 @@
+{% extends "base.html" %}
+{% import "bootstrap/wtf.html" as wtf %}
+
+{% block title %}Yeni Şifre{% endblock %}
+
+{% block content %}
+<section class="form-panel">
+  <div class="form-heading">
+    <p class="eyebrow">Hesap</p>
+    <h1>Yeni Şifre</h1>
+  </div>
+  {{ wtf.quick_form(form) }}
+</section>
+{% endblock %}

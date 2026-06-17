@@ -1,0 +1,43 @@
+{% extends "base.html" %}
+
+{% block title %}Siparişler{% endblock %}
+
+{% block content %}
+<section class="section-title">
+  <h1>Siparişler</h1>
+</section>
+
+{% if not orders %}
+  <div class="empty-state">
+    Henüz siparişiniz yok.
+    <a href="{{ url_for('home') }}">Ürünlere bak</a>
+  </div>
+{% else %}
+  <div class="table-shell">
+    <table class="table">
+      <thead>
+        <tr>
+          <th>No</th>
+          <th>Tarih</th>
+          <th>Ürünler</th>
+          <th>Durum</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for order in orders %}
+          <tr>
+            <td>#{{ order.id }}</td>
+            <td>{{ order.date.strftime('%Y-%m-%d %H:%M') }}</td>
+            <td>
+              {% for i in order.items %}
+                {{ i.item.name }} x {{ i.quantity }}<br>
+              {% endfor %}
+            </td>
+            <td><span class="status-pill">{{ order.status }}</span></td>
+          </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
+{% endif %}
+{% endblock %}

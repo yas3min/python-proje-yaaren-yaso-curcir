@@ -1,0 +1,5 @@
+id,kullanici,rol,islem,tarih_saat
+1,admin@aromora.local,admin,Giris yapildi,2026-06-17 09:50:00
+2,admin@aromora.local,admin,Urun eklendi: Ornek Parfum,2026-06-17 09:55:00
+3,musteri@example.com,customer,Giris yapildi,2026-06-17 10:01:00
+4,musteri@example.com,customer,Sepete urun eklendi: Ornek Parfum x 1,2026-06-17 10:03:00

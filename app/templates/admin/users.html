@@ -1,0 +1,50 @@
+{% extends "base.html" %}
+
+{% block title %}Kullanıcı Yönetimi{% endblock %}
+
+{% block content %}
+<section class="section-title">
+  <div>
+    <p class="eyebrow">Admin</p>
+    <h1>Kullanıcı Yönetimi</h1>
+  </div>
+  <a href="{{ url_for('admin.list_items') }}" class="btn btn-outline-dark">Ürünler</a>
+</section>
+
+<div class="table-shell">
+  <table class="table">
+    <thead>
+      <tr>
+        <th>Ad</th>
+        <th>E-posta</th>
+        <th>Telefon</th>
+        <th>Yetki</th>
+        <th></th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for user in users %}
+        <tr>
+          <td><strong>{{ user.name }}</strong></td>
+          <td>{{ user.email }}</td>
+          <td>{{ user.phone }}</td>
+          <td><span class="status-pill">{{ "Admin" if user.admin else "Kullanıcı" }}</span></td>
+          <td class="table-actions">
+            <a href="{{ url_for('admin.change_user_password', id=user.id) }}" class="btn btn-sm btn-outline-dark">Sifre</a>
+            {% if user.id != current_user.id %}
+              <form action="{{ url_for('admin.toggle_admin', id=user.id) }}" method="POST">
+                <button class="btn btn-sm btn-outline-dark" type="submit">
+                  {{ "Adminliği Kaldır" if user.admin else "Admin Yap" }}
+                </button>
+              </form>
+              <form action="{{ url_for('admin.delete_user', id=user.id) }}" method="POST" onsubmit="return confirm('Bu kullanıcı silinsin mi?');">
+                <button class="btn btn-sm btn-outline-danger" type="submit">Sil</button>
+              </form>
+            {% endif %}
+          </td>
+        </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+</div>
+{% endblock %}

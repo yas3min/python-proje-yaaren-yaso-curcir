@@ -1,0 +1,25 @@
+{% extends "base.html" %}
+
+{% block title %}{{ item.name }}{% endblock %}
+
+{% block content %}
+<section class="detail-layout">
+  <div class="detail-media">
+    <img src="{{ url_for('static', filename='uploads/' + item.image) }}" alt="{{ item.name }}">
+  </div>
+  <div class="detail-copy">
+    <p class="eyebrow">{{ item.category }}</p>
+    <h1>{{ item.name }}</h1>
+    <p class="detail-price">{{ "%.2f"|format(item.price) }} TL</p>
+    <div class="details">{{ item.details | safe }}</div>
+
+    <form action="{{ url_for('add_to_cart', id=item.id) }}" method="POST" class="buy-box">
+      <label for="quantity">Miktar</label>
+      <input id="quantity" type="number" value="1" name="quantity" min="1" max="50" required>
+      <button type="submit" class="btn btn-primary btn-block">
+        <i class="fa fa-shopping-cart"></i> Sepete Ekle
+      </button>
+    </form>
+  </div>
+</section>
+{% endblock %}

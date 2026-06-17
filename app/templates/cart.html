@@ -1,0 +1,41 @@
+{% extends "base.html" %}
+
+{% block title %}Sepet{% endblock %}
+
+{% block content %}
+<section class="section-title">
+  <h1>Sepet</h1>
+  <a href="{{ url_for('home') }}" class="btn btn-outline-dark">Alışverişe Devam</a>
+</section>
+
+{% if not items %}
+  <div class="empty-state">
+    Sepet boş.
+    <a href="{{ url_for('home') }}">Ürünlere bak</a>
+  </div>
+{% else %}
+  <div class="cart-layout">
+    <div class="cart-list">
+      {% for i in range(items|length) %}
+        <article class="cart-row">
+          <img src="{{ url_for('static', filename='uploads/' + items[i].image) }}" alt="{{ items[i].name }}">
+          <div>
+            <h3>{{ items[i].name }}</h3>
+            <p>{{ quantity[i] }} adet</p>
+          </div>
+          <strong>{{ "%.2f"|format(quantity[i] * items[i].price) }} TL</strong>
+          <a href="{{ url_for('remove', id=items[i].id, quantity=quantity[i]) }}" class="btn btn-sm btn-outline-danger">Kaldır</a>
+        </article>
+      {% endfor %}
+    </div>
+    <aside class="summary-panel">
+      <span>Toplam</span>
+      <strong>{{ "%.2f"|format(price) }} TL</strong>
+      <form method="POST" action="{{ url_for('create_checkout_session') }}">
+        <input type="hidden" value="{{ price_ids }}" name="price_ids">
+        <button class="btn btn-primary btn-block">Sipariş Oluştur</button>
+      </form>
+    </aside>
+  </div>
+{% endif %}
+{% endblock %}

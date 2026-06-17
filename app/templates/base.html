@@ -1,0 +1,85 @@
+{% import "bootstrap/wtf.html" as wtf %}
+<!DOCTYPE html>
+<html lang="tr">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='styles.css') }}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <title>{% block title %}Aromora{% endblock %}</title>
+  </head>
+  <body>
+    <nav class="navbar navbar-expand-lg navbar-light app-nav">
+      <a class="navbar-brand brand" href="{{ url_for('home') }}">
+        <span class="brand-mark">A</span>
+        <span>Aromora</span>
+      </a>
+      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+
+      <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <form class="form-inline search-form" action="{{ url_for('search') }}">
+          <input class="form-control" type="search" name="query" placeholder="Koku veya marka ara" required>
+          <button class="btn btn-dark" type="submit"><i class="fa fa-search"></i></button>
+        </form>
+        <ul class="navbar-nav ml-auto align-items-lg-center">
+          <li class="nav-item"><a class="nav-link" href="{{ url_for('home') }}">Anasayfa</a></li>
+          {% if not current_user.is_authenticated %}
+            <li class="nav-item"><a class="nav-link" href="{{ url_for('login') }}">Giriş</a></li>
+            <li class="nav-item"><a class="btn btn-primary nav-cta" href="{{ url_for('register') }}">Kayıt Ol</a></li>
+          {% else %}
+            {% if current_user.admin %}
+              <li class="nav-item"><a class="nav-link" href="{{ url_for('admin.add_item') }}">Ürün Ekle</a></li>
+              <li class="nav-item"><a class="nav-link" href="{{ url_for('admin.list_items') }}">Admin</a></li>
+            {% endif %}
+            <li class="nav-item">
+              <a class="nav-link icon-link" href="{{ url_for('cart') }}"><i class="fa fa-shopping-cart"></i></a>
+            </li>
+            <li class="nav-item dropdown">
+              <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown">
+                <i class="fa fa-user-circle"></i> {{ current_user.name }}
+              </a>
+              <div class="dropdown-menu dropdown-menu-right">
+                <a class="dropdown-item" href="{{ url_for('orders') }}">Siparişler</a>
+                <a class="dropdown-item" href="{{ url_for('reports') }}">Raporlarim</a>
+                <a class="dropdown-item" href="{{ url_for('profile') }}">Profilim</a>
+                {% if current_user.admin %}
+                  <div class="dropdown-divider"></div>
+                  <a class="dropdown-item" href="{{ url_for('admin.list_users') }}">Kullanıcılar</a>
+                  <a class="dropdown-item" href="{{ url_for('admin.logs') }}">Sistem Loglari</a>
+                  <a class="dropdown-item" href="{{ url_for('admin.password_resets') }}">Şifre Sıfırlama İstekleri</a>
+                {% endif %}
+                <div class="dropdown-divider"></div>
+                <a class="dropdown-item text-danger" href="{{ url_for('logout') }}">Çıkış Yap</a>
+              </div>
+            </li>
+          {% endif %}
+        </ul>
+      </div>
+    </nav>
+
+    <main class="page-shell">
+      {% with msgs = get_flashed_messages(with_categories=True) %}
+        {% if msgs %}
+          <div class="flash-stack">
+            {% for c, msg in msgs %}
+              <div class="alert alert-{{ 'danger' if c == 'error' else ('warning' if c == 'warning' else ('info' if c == 'info' else 'success')) }}">
+                {{ msg | safe }}
+              </div>
+            {% endfor %}
+          </div>
+        {% endif %}
+      {% endwith %}
+      {% block content %}{% endblock %}
+    </main>
+
+    <footer class="site-footer">
+      <span>© {{ now.year }} Aromora</span>
+    </footer>
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+  </body>
+</html>

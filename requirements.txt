@@ -1,0 +1,9 @@
+Flask
+Flask-Bootstrap
+Flask-Login
+Flask-SQLAlchemy
+Flask-WTF
+Flask-Mail
+email-validator
+python-dotenv
+stripe

@@ -1,0 +1,5 @@
+id,kullanici,islem,tarih_saat
+1,musteri@example.com,Yeni hesap olusturuldu,2026-06-17 10:00:00
+2,musteri@example.com,Giris yapildi,2026-06-17 10:01:00
+3,musteri@example.com,Sepete urun eklendi: Ornek Parfum x 1,2026-06-17 10:03:00
+4,musteri@example.com,"Siparis kalemi olusturuldu: #1, urun_id=1, adet=1",2026-06-17 10:05:00
